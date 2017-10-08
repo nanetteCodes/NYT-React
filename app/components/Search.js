@@ -1,74 +1,49 @@
-// Include React
+// Include React as a dependency
 var React = require("react");
-var Results = require("./Results");
 
-// Create the Child Component
+// Include the Query and Results components
+var Query = require("./search/Query");
+var Results = require("./search/Results");
+
+// Include the helpers for making API calls
+var helpers = require("../utils/helpers");
+
+// Create the Search component
 var Search = React.createClass({
+
+  // Here we set the initial state variables
+  // (this allows us to propagate the variables for maniuplation by the children components
+  // Also note the "resuls" state. This will be where we hold the data from our results
+  getInitialState: function() {
+    return {
+      results: {}
+    };
+  },
+
+  // This function will be passed down into child components so they can change the "parent"
+  // i.e we will pass this method to the query component that way it can change the main component
+  // to perform a new search
+  setQuery: function(newQuery, newStart, newEnd) {
+    helpers.runQuery(newQuery, newStart, newEnd).then(function(data) {
+      this.setState({ results: { docs: data.docs } });
+    }.bind(this));
+  },
+
+  // Render the component. Note how we deploy both the Query and the Results Components
   render: function() {
+    console.log("Render Results", this.state.results);
+
     return (
-      <div>
-        <div className="row">
-          <div className="col-sm-12">
-            <br/>
-              {/* <!-- First panel is for handling the search parameters --> */}
-              <div className="panel panel-primary">
-                <div className="panel-heading">
-                  <h3 className="panel-title">
-                    <strong>
-                      <i className="fa  fa-list-alt"></i>
-                      Search Parameters</strong>
-                  </h3>
-                </div>
-                <div className="panel-body">
+      <div className="main-container">
 
-                  {/* <!-- Here we create an HTML Form for handling the inputs--> */}
-                  <form role="form">
+        {/* Note how we pass the setQuery function to enable Query to perform searches */}
+        <Query updateSearch={this.setQuery} />
+        {/* Note how we pass in the results into this component */}
+        <Results results={this.state.results} />
+      </div>
+    );
+  }
+});
 
-                    {/* <!-- Here we create the text box for capturing the search term--> */}
-                    <div className="form-group">
-                      <label htmlFor="search">Search Term:</label>
-                      <input type="text" className="form-control" id="search-term"/>
-
-                    </div>
-
-                      {/* <!-- Here we capture the number of records that the user wants to retrieve  --> */}
-                      <div className="form-group">
-                        <label htmlFor="pwd">Number of Records to Retrieve:</label>
-                        <select className="form-control" id="num-records-select">
-                          <option value="1">1</option>
-                          {/* <!-- Setting the option for 5 as default --> */}
-                          <option value="5" selected>5</option>
-                          <option value="10">10</option>
-                        </select>
-                      </div>
-
-                      {/* <!-- Here we capture the Start Year Parameter--> */}
-                      <div className="form-group">
-                        <label htmlFor="start-year">Start Year (Optional):</label>
-                        <input type="text" className="form-control" id="start-year"/>
-
-                      </div>
-
-                        {/* <!-- Here we capture the End Year Parameter --> */}
-                        <div className="form-group">
-                          <label htmlFor="end-year">End Year (Optional):</label>
-                          <input type="text" className="form-control" id="end-year"/>
-
-                        </div>
-                          <button type="submit" className="btn btn-default" id="run-search">
-                            <i className="fa fa-search"></i>
-                            Search</button>
-                          <button type="button" className="btn btn-default" id="clear-all">
-                            <i className="fa fa-trash"></i>
-                            Clear Results</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <Results/>
-        </div>
-      );
-    }
-  });
+// Export the module back to the route
 module.exports = Search;
