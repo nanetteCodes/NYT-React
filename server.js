@@ -21,9 +21,10 @@ app.use(express.static("public"));
 // -------------------------------------------------
 
 // MongoDB Configuration
-mongoose.connect("mongodb://localhost/reactNYT");
+mongoose.connect("//njulius:Fcgdaeb@ds115035.mlab.com:15035/heroku_h999sd1d");
 var db = mongoose.connection;
-
+//local db credentials
+// mongodb: //localhost/reactNYT
 db.on("error", function(err) {
   console.log("Mongoose Error: ", err);
 });

@@ -43,7 +43,7 @@ var Main = React.createClass({
 
           {/* Jumbotron */}
           <div className="jumbotron">
-            <h2 className="text-center"><strong>New York Times Articles</strong></h2>
+            <h1 className="text-center title"><strong>New York Times Articles</strong></h1>
             <h4 className="text-center">Search & Save Your Favorites</h4>
             <h6 className="text-center">Built with ReactJS</h6>
             <center><img src= {"react.png"} alt=""/></center>
