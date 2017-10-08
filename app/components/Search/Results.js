@@ -14,7 +14,7 @@ var Results = React.createClass({
     };
   },
   handleClick: function(item) {
-    console.log("CLICKED");
+    swal("Article Saved!", "", "success");
     console.log(item);
 
     helpers.postSaved(item.headline.main, item.pub_date, item.web_url).then(function() {
