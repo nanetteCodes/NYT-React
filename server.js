@@ -21,10 +21,11 @@ app.use(express.static("public"));
 // -------------------------------------------------
 
 // MongoDB Configuration
-mongoose.connect("//njulius:Fcgdaeb@ds115035.mlab.com:15035/heroku_h999sd1d");
+mongoose.connect("mongodb://<njulius:Fcgdaeb@ds115035.mlab.com:15035/heroku_h999sd1d");
 var db = mongoose.connection;
 //local db credentials
 // mongodb: //localhost/reactNYT
+// mongodb://<njulius:Fcgdaeb@ds115035.mlab.com:15035/heroku_h999sd1d
 db.on("error", function(err) {
   console.log("Mongoose Error: ", err);
 });
