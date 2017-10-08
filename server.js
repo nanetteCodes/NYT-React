@@ -18,14 +18,17 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 app.use(express.static("public"));
 
-// -------------------------------------------------
-
-// MongoDB Configuration
-mongoose.connect("mongodb://<njulius:Fcgdaeb@ds115035.mlab.com:15035/heroku_h999sd1d");
+//MongoDB Configuration-------------------------------------------------
+var databaseUri = "mongodb://localhost/reactNYT"
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else{
+mongoose.connect(databaseUri);
+}
+//End DB config----------------------------------------------------------
 var db = mongoose.connection;
-//local db credentials
-// mongodb: //localhost/reactNYT
-// mongodb://<njulius:Fcgdaeb@ds115035.mlab.com:15035/heroku_h999sd1d
+
+// mongodb://njulius:Fcgdaeb@ds115035.mlab.com:15035/heroku_h999sd1d
 db.on("error", function(err) {
   console.log("Mongoose Error: ", err);
 });
