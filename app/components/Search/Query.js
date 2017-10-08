@@ -4,7 +4,6 @@ var React = require("react");
 // Query Component Declaration
 var Query = React.createClass({
 
-  // Here we set initial variables for the component to be blanks
   getInitialState: function() {
     return {
       search: "",
@@ -13,26 +12,21 @@ var Query = React.createClass({
     };
   },
 
-  // Whenever we detect ANY change in the textbox, we register it.
   handleChange: function(event) {
     console.log("TEXT CHANGED");
 
-    // Here we create syntax to capture any change in text to the query terms (pre-search).
-    // See this Stack Overflow answer for more details:
-    // http://stackoverflow.com/questions/21029999/react-js-identifying-different-inputs-with-one-onchange-handler
+
     var newState = {};
     newState[event.target.id] = event.target.value;
     this.setState(newState);
   },
 
-  // This code handles the sending of the search terms to the parent Search component
   handleSubmit: function(event) {
     event.preventDefault();
     console.log("CLICKED");
     this.props.updateSearch(this.state.search, this.state.start, this.state.end);
   },
 
-  // Here we render the Query component
   render: function() {
 
     return (
@@ -40,7 +34,6 @@ var Query = React.createClass({
 
         <div className="row">
           <div className="col-lg-12">
-
             <div className="panel panel-primary">
               <div className="panel-heading">
                 <h1 className="panel-title text-center">
@@ -49,7 +42,7 @@ var Query = React.createClass({
               </div>
               <div className="panel-body">
 
-                {/* Note how we associate the text-box inputs with the state values */}
+
                 <form onSubmit={this.handleSubmit}>
                   <div className="form-group">
                     <h4 className=""><strong>Topic</strong></h4>
@@ -85,7 +78,6 @@ var Query = React.createClass({
 
                   </div>
 
-                  {/* Here we create the onClick event that triggers the HandleSubmit */}
                   <div className="pull-right">
                     <button
                       type="submit"

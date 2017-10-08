@@ -1,13 +1,11 @@
 // Include React as a dependency
 var React = require("react");
 
-// Include our helpers for API calls
 var helpers = require("../../utils/helpers");
 
-// Results Component Declaration
+
 var Results = React.createClass({
 
-  // Here we will save states for the contents we save
   getInitialState: function() {
     return {
       title: "",
@@ -15,8 +13,6 @@ var Results = React.createClass({
       pubdate: ""
     };
   },
-
-  // This code handles the sending of the search terms to the parent Search component
   handleClick: function(item) {
     console.log("CLICKED");
     console.log(item);
@@ -26,11 +22,9 @@ var Results = React.createClass({
     });
   },
 
-  // A helper method for mapping through our articles and outputting some HTML
   renderArticles: function() {
     return this.props.results.docs.map(function(article, index) {
 
-      // Each article thus reperesents a list group item with a known index
       return (
         <div key={index}>
           <li className="list-group-item">
@@ -43,10 +37,6 @@ var Results = React.createClass({
                   <button className="btn btn-info ">View</button>
                 </a>
 
-                {/*
-                  By using an arrow function callback to wrap this.handleClick,
-                  we can pass in an article as an argument
-                */}
                 <button className="btn btn-primary" onClick={() => this.handleClick(article)}>Save</button>
               </span>
             </h3>
@@ -61,7 +51,6 @@ var Results = React.createClass({
 
   },
 
-  // A helper method for rendering a container to hold all of our articles
   renderContainer: function() {
     return (
       <div className="main-container">
@@ -85,7 +74,6 @@ var Results = React.createClass({
     );
   },
   render: function() {
-    // If we have no articles, render this HTML
     if (!this.props.results.docs) {
       return (
         <li className="list-group-item">
@@ -97,7 +85,6 @@ var Results = React.createClass({
         </li>
       );
     }
-    // If we have articles, return this.renderContainer() which in turn, returns all the articles
     return this.renderContainer();
   }
 });

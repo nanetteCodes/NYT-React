@@ -8,8 +8,7 @@ var Article = require("./server/model");
 
 // Express
 var app = express();
-var PORT = process.env.PORT || 3000; // Sets an initial port. We'll use this later in our listener
-
+var PORT = process.env.PORT || 3000; // Sets an initial port.
 // Run Morgan for Logging
 app.use(logger("dev"));
 app.use(bodyParser.json());
@@ -82,7 +81,6 @@ app.delete("/api/saved/", function(req, res) {
   });
 });
 
-// Any non API GET routes will be directed to our React App and handled by React Router
 app.get("*", function(req, res) {
   res.sendFile(__dirname + "/public/index.html");
 });

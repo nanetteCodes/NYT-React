@@ -17,8 +17,7 @@ var helpers = {
 
 
     console.log("Query Run");
-    // Run a query using Axios. Then return the results as an object with an array.
-    // See the Axios documentation for details on how we structured this with the params.
+
     return axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json", {
       params: {
         "api-key": APIKey,
@@ -32,7 +31,7 @@ var helpers = {
       return results.data.response;
     });
   },
-  // This will return any saved articles from our database
+
   getSaved: function() {
     return axios.get("/api/saved")
       .then(function(results) {
@@ -40,7 +39,6 @@ var helpers = {
         return results;
       });
   },
-  // This will save new articles to our database
   postSaved: function(title, date, url) {
     var newArticle = { title: title, date: date, url: url };
     return axios.post("/api/saved", newArticle)
@@ -49,7 +47,7 @@ var helpers = {
         return response.data._id;
       });
   },
-  // This will remove saved articles from our database
+
   deleteSaved: function(title, data, url) {
     return axios.delete("/api/saved", {
       params: {

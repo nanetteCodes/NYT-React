@@ -10,7 +10,7 @@ var Main = React.createClass({
   render: function() {
 
     return (
-      // We can only render a single div. So we need to group everything inside of this main-container one
+
       <div className="main-container">
         <div className="container">
           {/* Navbar */}
@@ -50,8 +50,6 @@ var Main = React.createClass({
           </div>
 
 
-          {/* Here we will deploy the sub components (Search or Saved */}
-          {/* These sub-components are getting passed as this.props.children */}
           {this.props.children}
 
           <footer>
