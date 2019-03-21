@@ -6,33 +6,34 @@ var helpers = require("../utils/helpers");
 
 // Create the Main component
 var Main = React.createClass({
-
   getInitialState: function() {
     return { savedArticles: "" };
   },
 
-
   componentDidMount: function() {
-    helpers.getSaved().then(function(articleData) {
-      this.setState({ savedArticles: articleData.data });
-      console.log("saved results", articleData.data);
-    }.bind(this));
+    helpers.getSaved().then(
+      function(articleData) {
+        this.setState({ savedArticles: articleData.data });
+        //console.log("saved results", articleData.data);
+      }.bind(this)
+    );
   },
 
-
   handleClick: function(item) {
-    console.log("CLICKED");
-    console.log(item);
+    //console.log("CLICKED");
+    //console.log(item);
 
-    helpers.deleteSaved(item.title, item.date, item.url).then(function() {
-
-      // Get the revised list!
-      helpers.getSaved().then(function(articleData) {
-        this.setState({ savedArticles: articleData.data });
-        console.log("saved results", articleData.data);
-      }.bind(this));
-
-    }.bind(this));
+    helpers.deleteSaved(item.title, item.date, item.url).then(
+      function() {
+        // Get the revised list!
+        helpers.getSaved().then(
+          function(articleData) {
+            this.setState({ savedArticles: articleData.data });
+            //console.log("saved results", articleData.data);
+          }.bind(this)
+        );
+      }.bind(this)
+    );
   },
 
   renderEmpty: function() {
@@ -47,31 +48,39 @@ var Main = React.createClass({
     );
   },
 
-
   renderArticles: function() {
-    return this.state.savedArticles.map(function(article, index) {
-
-      return (
-        <div key={index}>
-          <li className="list-group-item">
-            <h3>
-              <span>
-                <em>{article.title}</em>
-              </span>
-              <span className="btn-group pull-right">
-                <a href={article.url} rel="noopener noreferrer" target="_blank">
-                  <button className="btn btn-info ">View</button>
-                </a>
-                <button className="btn btn-default" onClick={() => this.handleClick(article)}>Delete</button>
-              </span>
-            </h3>
-            <p>Date Published: {article.date}</p>
-          </li>
-        </div>
-      );
-    }.bind(this));
+    return this.state.savedArticles.map(
+      function(article, index) {
+        return (
+          <div key={index}>
+            <li className="list-group-item">
+              <h3>
+                <span>
+                  <em>{article.title}</em>
+                </span>
+                <span className="btn-group pull-right">
+                  <a
+                    href={article.url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <button className="btn btn-info ">View</button>
+                  </a>
+                  <button
+                    className="btn btn-default"
+                    onClick={() => this.handleClick(article)}
+                  >
+                    Delete
+                  </button>
+                </span>
+              </h3>
+              <p>Date Published: {article.date}</p>
+            </li>
+          </div>
+        );
+      }.bind(this)
+    );
   },
-
 
   renderContainer: function() {
     return (
@@ -81,13 +90,12 @@ var Main = React.createClass({
             <div className="panel panel-primary">
               <div className="panel-heading">
                 <h1 className="panel-title text-center">
-                    <i className="fa fa-download" aria-hidden="true"></i> Saved Articles
+                  <i className="fa fa-download" aria-hidden="true" /> Saved
+                  Articles
                 </h1>
               </div>
               <div className="panel-body">
-                <ul className="list-group">
-                  {this.renderArticles()}
-                </ul>
+                <ul className="list-group">{this.renderArticles()}</ul>
               </div>
             </div>
           </div>

@@ -3,9 +3,7 @@ var React = require("react");
 
 var helpers = require("../../utils/helpers");
 
-
 var Results = React.createClass({
-
   getInitialState: function() {
     return {
       title: "",
@@ -15,40 +13,48 @@ var Results = React.createClass({
   },
   handleClick: function(item) {
     swal("Article Saved!", "", "success");
-    console.log(item);
+    //console.log(item);
 
-    helpers.postSaved(item.headline.main, item.pub_date, item.web_url).then(function() {
-      console.log(item.web_url);
-    });
+    helpers
+      .postSaved(item.headline.main, item.pub_date, item.web_url)
+      .then(function() {
+        //console.log(item.web_url);
+      });
   },
 
   renderArticles: function() {
-    return this.props.results.docs.map(function(article, index) {
+    return this.props.results.docs.map(
+      function(article, index) {
+        return (
+          <div key={index}>
+            <li className="list-group-item">
+              <h3>
+                <span>
+                  <em>{article.headline.main}</em>
+                </span>
+                <span className="btn-group pull-right">
+                  <a
+                    href={article.web_url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <button className="btn btn-info ">View</button>
+                  </a>
 
-      return (
-        <div key={index}>
-          <li className="list-group-item">
-            <h3>
-              <span>
-                <em>{article.headline.main}</em>
-              </span>
-              <span className="btn-group pull-right">
-                <a href={article.web_url} rel="noopener noreferrer" target="_blank">
-                  <button className="btn btn-info ">View</button>
-                </a>
-
-                <button className="btn btn-primary" onClick={() => this.handleClick(article)}>Save</button>
-              </span>
-            </h3>
-            <p>Date Published: {article.pub_date}</p>
-
-          </li>
-
-        </div>
-      );
-
-    }.bind(this));
-
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => this.handleClick(article)}
+                  >
+                    Save
+                  </button>
+                </span>
+              </h3>
+              <p>Date Published: {article.pub_date}</p>
+            </li>
+          </div>
+        );
+      }.bind(this)
+    );
   },
 
   renderContainer: function() {
@@ -58,14 +64,10 @@ var Results = React.createClass({
           <div className="col-lg-12">
             <div className="panel panel-primary">
               <div className="panel-heading">
-                <h1 className="panel-title text-center">
-                    Results
-                </h1>
+                <h1 className="panel-title text-center">Results</h1>
               </div>
               <div className="panel-body">
-                <ul className="list-group">
-                  {this.renderArticles()}
-                </ul>
+                <ul className="list-group">{this.renderArticles()}</ul>
               </div>
             </div>
           </div>
